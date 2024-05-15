@@ -1,0 +1,95 @@
+{% load static %}
+{% static "images" as baseUrl %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Tracker</title>
+    <link rel="stylesheet" href="{% static 'styles/indexstyle.css'%}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{%static 'js/trackwebpage.js'%}"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="left">
+            <img src="{% static 'images/logo1.png'%}" alt="logo1">
+            <p>Activity Tracker</p>
+        </div>
+        <div class="right">
+            <button id="limit"><a href="#" >Set&nbsp;Limits</a></button>
+            <button><a href="{% url 'logout' %}">Logout</a></button>
+            <p id="user">g</p>
+        </div>
+    </div>
+    <div class="content">
+        <div class="display">
+            <div class="box">
+                <div class="para">
+                    <h4>Today</h4>
+                    <h3 id="todaydata">{{senddata.todayhour}}h&nbsp;&nbsp;{{senddata.todayminutes}}m</h3>
+                    <div class="past">
+                        <h4 id="val1">+10%</h4>
+                        <p>yesterday</p>
+                        <h5>{{senddata.yesterdayhour}}h&nbsp;{{senddata.yesterdayminutes}}m</h5>
+                    </div>
+                </div>
+                <div class="line">
+                    <!-- <img src="{% static 'images/inc.png'%}" id="g1" alt="increase"> -->
+                </div>
+            </div>
+            <div class="box">
+                <div class="para">
+                    <h4>This week</h4>
+                    <h3>{{senddata.thisweekhour}}h&nbsp;{{senddata.thisweekminutes}}m</h3>
+                    <div class="past">
+                        <h4 id="val2">-17%</h4>
+                        <p>last week</p>
+                        <h5>{{senddata.lastweekhour}}h&nbsp;{{senddata.lastweekminutes}}m</h5>
+                    </div>
+                </div>
+                <div class="line">
+                    <!-- <img src="{% static 'images/dec.png'%}" id="g2" alt="decrease"> -->
+                </div>
+            </div>
+        </div>
+        <div class="display2">
+            <div class="graph">
+                <div class="head">
+                    <h1 id="graphhead">Today's Activity</h1>
+                    <div class="dropm1">
+                        <a id="drop1">Today &nbsp;<img src="{% static 'images/arrow.png'%}" alt="arrow" id="arrow1"></a>
+                    <div id="drop1ele">
+                        <hr>
+                        <a>This week</a>
+                    </div>
+                    </div>
+                </div>
+                <div id="chart_div" class="chart"></div>
+            </div>
+            <div class="most">
+                <div class="head">
+                    <h1 id="mosthead">Most used</h1>
+                    <div class="dropm2">
+                        <a id="drop2">Today &nbsp;<img src="{% static 'images/arrow.png'%}" alt="arrow" id="arrow2"></a>
+                    <div id="drop2ele">
+                        <hr>
+                        <a>This week</a>
+                    </div>
+                    </div>
+                </div>
+                <div class="list">
+                    {%for url in mostused%}
+                    <hr>
+                    <div class="p"><p>{{url.url}}&nbsp;<b>{{url.hours}}h&nbsp;{{url.minutes}}m</b></p></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{%static 'js/src.js'%}"></script>
+    </body>
+</html>
